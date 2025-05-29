@@ -1,0 +1,14 @@
+"""
+Domain   : SQL
+Author    : Aishwarya Rajagopal
+"""
+
+ Problem 1 : https://datalemur.com/questions/sql-histogram-tweets
+
+select tweet_bucket, count(user_id) as users_num 
+FROM
+(SELECT count(tweet_id) as tweet_bucket, user_id
+FROM tweets
+where tweet_date>='01/01/2022' and tweet_date<='12/31/2022'
+group by user_id) as tot_tweets
+group by tweet_bucket;
