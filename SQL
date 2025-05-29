@@ -21,3 +21,14 @@ FROM candidates
 WHERE skill in ('Python', 'Tableau','PostgreSQL')
 group by candidate_id
 HAVING count(skill)>=3;
+
+
+Problem 3 : https://datalemur.com/questions/sql-page-with-no-likes
+
+SELECT p.page_id
+FROM pages p
+left join page_likes l
+on p.page_id = l.page_id
+where l.liked_date is null
+group by p.page_id,p.page_name
+order by p.page_name asc;
