@@ -12,3 +12,12 @@ FROM tweets
 where tweet_date>='01/01/2022' and tweet_date<='12/31/2022'
 group by user_id) as tot_tweets
 group by tweet_bucket;
+
+
+Problem 2 : https://datalemur.com/questions/matching-skills
+
+SELECT candidate_id
+FROM candidates
+WHERE skill in ('Python', 'Tableau','PostgreSQL')
+group by candidate_id
+HAVING count(skill)>=3;
