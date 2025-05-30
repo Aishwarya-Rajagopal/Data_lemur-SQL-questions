@@ -32,3 +32,9 @@ on p.page_id = l.page_id
 where l.liked_date is null
 group by p.page_id,p.page_name
 order by p.page_name asc;
+
+Problem 4 : https://datalemur.com/questions/tesla-unfinished-parts
+
+SELECT part,	assembly_step 
+FROM parts_assembly
+where finish_date is null;
