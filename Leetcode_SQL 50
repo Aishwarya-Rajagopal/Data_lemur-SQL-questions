@@ -1,1 +1,25 @@
+"""
+Domain   : SQL
+Author    : Aishwarya Rajagopal
 
+"""
+
+1581. Customer Who Visited but Did Not Make Any Transactions
+
+select v.customer_id,count(v.visit_id) as count_no_trans
+from Visits v
+left join Transactions t
+on v.visit_id = t.visit_id 
+    where transaction_id is null
+    group by v.customer_id ;
+
+1693. Daily Leads and Partners
+
+with cte as 
+    (select distinct date_id, make_name, lead_id,partner_id
+    from DailySales )
+select date_id, make_name, count(distinct lead_id) as unique_leads, 
+    count(distinct partner_id) as unique_partners 
+    from cte
+   group by date_id ,make_name 
+   order by date_id;
