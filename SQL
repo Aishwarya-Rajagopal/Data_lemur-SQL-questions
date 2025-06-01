@@ -38,3 +38,39 @@ Problem 4 : https://datalemur.com/questions/tesla-unfinished-parts
 SELECT part,	assembly_step 
 FROM parts_assembly
 where finish_date is null;
+
+Problem 5 : https://datalemur.com/questions/laptop-mobile-viewership
+
+SELECT
+sum(case when device_type = 'laptop' then 1 else 0 end) as laptop_views,
+sum(case when device_type IN ('tablet', 'phone') then 1 else 0 end) as mobile_views 
+FROM viewership;
+
+Problem 6 : https://datalemur.com/questions/sql-average-post-hiatus-1
+
+SELECT user_id,	max(post_date:: DATE)-min(post_date::DATE) as time_diff
+FROM posts
+WHERE DATE_PART('year', POST_DATE::DATE) = 2021
+group by user_id
+HAVING COUNT(POST_ID) > 1
+
+Problem 7 : https://datalemur.com/questions/teams-power-users
+
+SELECT sender_id,count(	message_id) as message_count 
+FROM messages
+WHERE sent_date>= '08/01/2022' and sent_date<= '08/31/2022'
+group by sender_id
+order by message_count DESC
+limit 2;
+
+Problem 8 : https://datalemur.com/questions/duplicate-job-listings
+
+with cte AS
+(
+SELECT company_id	,title,	description, count(job_id)
+FROM job_listings
+group by company_id,title,description
+)
+select count(company_id) as duplicate_companies
+from cte
+where  count > 1;
