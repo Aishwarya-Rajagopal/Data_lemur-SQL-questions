@@ -30,3 +30,17 @@ SELECT max(salary)
 FROM employee
 where salary < (SELECT max(salary)
 FROM employee);
+
+Problem 3: https://datalemur.com/questions/sql-top-three-salaries
+
+with cte1 as(
+SELECT department_name,	name,	salary ,
+dense_rank() over (partition by department_name order by salary desc) as ranking
+FROM employee e
+left join department d
+on e.department_id = d.department_id)
+
+select department_name,	name,	salary
+from cte1
+where ranking <= 3
+order by department_name asc,salary desc,	name asc	;
