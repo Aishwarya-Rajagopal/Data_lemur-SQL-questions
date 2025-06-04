@@ -14,4 +14,8 @@ where ranking <3
 order by category,ranking
 ;
 
-Problem 2 :
+Problem 2 :https://datalemur.com/questions/sql-second-highest-salary
+SELECT salary
+FROM employee
+order by salary desc
+limit 1 OFFSET 1;
