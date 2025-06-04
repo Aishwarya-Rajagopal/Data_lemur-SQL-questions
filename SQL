@@ -99,3 +99,5 @@ FROM employee as mgr
 inner JOIN employee as emp
 on  mgr.employee_id= emp.manager_id
 where mgr.salary < emp.salary;
+
+
