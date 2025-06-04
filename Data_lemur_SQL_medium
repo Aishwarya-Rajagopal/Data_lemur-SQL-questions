@@ -15,7 +15,15 @@ order by category,ranking
 ;
 
 Problem 2 :https://datalemur.com/questions/sql-second-highest-salary
+
+soln 1 : 
 SELECT salary
 FROM employee
 order by salary desc
 limit 1 OFFSET 1;
+
+soln 2:
+SELECT max(salary)
+FROM employee
+where salary < (SELECT max(salary)
+FROM employee);
