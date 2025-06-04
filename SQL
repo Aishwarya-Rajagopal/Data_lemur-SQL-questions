@@ -91,3 +91,11 @@ Problem 10 : https://datalemur.com/questions/sql-avg-review-ratings
 SELECT EXTRACT(MONTH FROM submit_date) as mth,product_id as product,round(avg(stars),2) as avg_rating
 FROM reviews
 group by mth,product;
+
+Problem 11 :https://datalemur.com/questions/sql-well-paid-employees
+
+SELECT emp.employee_id ,emp.name as employee_name
+FROM employee as mgr
+inner JOIN employee as emp
+on  mgr.employee_id= emp.manager_id
+where mgr.salary < emp.salary;
