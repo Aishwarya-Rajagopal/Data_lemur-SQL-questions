@@ -1,4 +1,7 @@
 """
+Domain   : SQL
+Author    : Aishwarya Rajagopal
+
 """
 Problem 1: https://datalemur.com/questions/sql-highest-grossing
 with cte as(
