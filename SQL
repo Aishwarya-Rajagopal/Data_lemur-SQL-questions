@@ -74,3 +74,14 @@ group by company_id,title,description
 select count(company_id) as duplicate_companies
 from cte
 where  count > 1;
+
+Problem 9 : https://datalemur.com/questions/completed-trades
+
+SELECT city,count(order_id) as total_orders
+FROM trades t
+right join users u
+on t.user_id = u.user_id
+where status = 'Completed'
+group by city
+order by total_orders DESC
+limit 3;
