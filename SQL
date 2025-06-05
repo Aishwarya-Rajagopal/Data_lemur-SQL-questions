@@ -1,5 +1,6 @@
 """
 Domain   : SQL
+Level    : Easy
 Author    : Aishwarya Rajagopal
 """
 
@@ -100,4 +101,38 @@ inner JOIN employee as emp
 on  mgr.employee_id= emp.manager_id
 where mgr.salary < emp.salary;
 
+Problem 12 : https://datalemur.com/questions/click-through-rate
+
+SELECT app_id,
+round(100.0*sum(case when event_type = 'click' then 1 else 0 end)/
+sum(case when event_type = 'impression' then 1 else 0 end),2) as ctr
+FROM events
+where timestamp >='01/01/2022' AND timestamp <='12/31/2022'
+GROUP BY app_id;
+
+Problem 13 : https://datalemur.com/questions/second-day-confirmation
+
+SELECT user_id
+from texts t
+left join emails e
+on t.email_id = e.email_id
+where signup_action = 'Confirmed' AND action_date = (select signup_date::DATE + INTERVAL '1 DAY')
+group by t.email_id,user_id;
+
+Problem 14 : https://datalemur.com/questions/sql-ibm-db2-product-analytics
+with cte AS
+(
+SELECT   e.employee_id,
+  COALESCE(COUNT(DISTINCT q.query_id),0) AS unique_queries
+FROM employees e
+LEFT JOIN queries q
+on e.employee_id = q.employee_id
+AND query_starttime >= '2023-07-01T00:00:00Z'
+  AND query_starttime < '2023-10-01T00:00:00Z'
+GROUP BY e.employee_id
+)
+select unique_queries,count(employee_id)
+from cte
+group by unique_queries
+order by unique_queries ASC; 
 
