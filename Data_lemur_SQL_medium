@@ -1,7 +1,7 @@
 """
 Domain   : SQL
 Author    : Aishwarya Rajagopal
-
+Level     : Medium
 """
 Problem 1: https://datalemur.com/questions/sql-highest-grossing
 with cte as(
@@ -44,3 +44,18 @@ select department_name,	name,	salary
 from cte1
 where ranking <= 3
 order by department_name asc,salary desc,	name asc	;
+
+Problem 4: https://datalemur.com/questions/signup-confirmation-rate
+
+SELECT round(count(t.email_id)::DECIMAL/count(e.email_id),2) as confirm_rate
+FROM emails e
+left join texts t
+on e.email_id = t.email_id and signup_action='Confirmed';
+
+
+Problem 5: https://datalemur.com/questions/rolling-average-tweets
+
+SELECT user_id,	tweet_date,	
+round(avg(tweet_count) over(partition by user_id order by tweet_date
+rows between 2 preceding and current row),2) as rolling_avg_3d
+FROM tweets;
