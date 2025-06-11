@@ -69,7 +69,17 @@ select user_id,	spend	,transaction_date
 from cte
 where trip_no = 3;
 
-Problem 7:
+Problem 7: https://datalemur.com/questions/supercloud-customer
+
+with cte as (SELECT *,
+dense_rank() over(PARTITION by customer_id order by product_category) as clubbing
+FROM customer_contracts cc
+left join products p
+on cc.product_id = p.product_id)
+SELECT customer_id from cte 
+where clubbing = 3;
+
+
 Problem 8:
 Problem 9:
 Problem 10:
