@@ -71,6 +71,7 @@ where trip_no = 3;
 
 Problem 7: https://datalemur.com/questions/supercloud-customer
 
+soln 1:
 with cte as (SELECT *,
 dense_rank() over(PARTITION by customer_id order by product_category) as clubbing
 FROM customer_contracts cc
@@ -78,6 +79,20 @@ left join products p
 on cc.product_id = p.product_id)
 SELECT customer_id from cte 
 where clubbing = 3;
+
+soln 2:
+WITH cte AS (SELECT 
+    customers.customer_id, 
+    COUNT(DISTINCT products.product_category) AS product_count
+  FROM customer_contracts AS customers
+  INNER JOIN products 
+    ON customers.product_id = products.product_id
+  GROUP BY customers.customer_id)
+  SELECT customer_id
+FROM cte
+WHERE product_count = 3;
+
+
 
 
 Problem 8:
