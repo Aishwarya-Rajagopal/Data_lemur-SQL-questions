@@ -59,3 +59,19 @@ SELECT user_id,	tweet_date,
 round(avg(tweet_count) over(partition by user_id order by tweet_date
 rows between 2 preceding and current row),2) as rolling_avg_3d
 FROM tweets;
+
+Problem 6: https://datalemur.com/questions/sql-third-transaction
+
+with cte as (SELECT user_id,	spend	,transaction_date ,
+row_number() over (partition by user_id order by transaction_date) as trip_no
+FROM transactions)
+select user_id,	spend	,transaction_date
+from cte
+where trip_no = 3;
+
+Problem 7:
+Problem 8:
+Problem 9:
+Problem 10:
+Problem 11:
+Problem 12:
