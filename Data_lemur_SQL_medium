@@ -135,6 +135,18 @@ and low_open.row_num = 1
 order by high_open.ticker;
 
 
-Problem 10:
+Problem 10: https://datalemur.com/questions/card-launch-success
+
+with cte as 
+(SELECT card_name,MAKE_DATE(issue_year, issue_month, 1) as issue_date,issued_amount ,
+
+min(MAKE_DATE(issue_year, issue_month, 1)) over(partition by card_name) as launch_date
+FROM monthly_cards_issued)
+SELECT card_name, issued_amount
+from cte
+where issue_date = launch_date
+order by issued_amount desc;
+
+
 Problem 11:
 Problem 12:
