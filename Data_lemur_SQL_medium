@@ -92,11 +92,49 @@ WITH cte AS (SELECT
 FROM cte
 WHERE product_count = 3;
 
+Problem 8: https://datalemur.com/questions/sql-swapped-food-delivery
+
+WITH cte AS (
+  SELECT COUNT(order_id) AS total_orders 
+  FROM orders
+)
+
+SELECT 
+case 
+  when order_id % 2 != 0 and order_id != total_orders then order_id + 1
+  when order_id % 2 != 0 and order_id = total_orders then order_id
+  else order_id - 1
+end as corrected_order_id,
+item
+FROM orders
+CROSS JOIN cte
+order by corrected_order_id;
 
 
+Problem 9: https://datalemur.com/questions/sql-bloomberg-stock-min-max-1
 
-Problem 8:
-Problem 9:
+with high_open AS
+(SELECT ticker,TO_CHAR(date, 'Mon-YYYY') as month,max(open) as highest_open,
+ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY open DESC) AS row_num
+FROM stock_prices
+group by ticker,month,open),
+
+low_open AS
+(SELECT ticker,TO_CHAR(date, 'Mon-YYYY') as month,min(open) as lowest_open,
+ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY open) AS row_num
+FROM stock_prices
+group by ticker,month,open)
+
+select high_open.ticker,high_open.month as highest_mth,	highest_open,	
+low_open.month as lowest_mth,	lowest_open
+from high_open
+inner join low_open
+on high_open.ticker = low_open.ticker
+and high_open.row_num = 1
+and low_open.row_num = 1
+order by high_open.ticker;
+
+
 Problem 10:
 Problem 11:
 Problem 12:
