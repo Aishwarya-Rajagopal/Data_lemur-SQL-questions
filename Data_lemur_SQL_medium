@@ -185,3 +185,23 @@ sum(case when grp_sequence%2 != 0 then measurement_value else 0 end)as odd_sum,
 sum(case when grp_sequence%2 = 0 then measurement_value else 0 end)as even_sum
 from cte
 GROUP BY measurement_day;
+
+Problem 13: https://datalemur.com/questions/time-spent-snaps
+
+with cte as 
+(
+select ab.age_bucket,
+sum(case when a.activity_type='send' then a.time_spent ELSE 0 end) as send_time,
+sum(case when a.activity_type='open' then a.time_spent ELSE 0 end) as open_time,
+sum(a.time_spent) as total_time
+from activities a
+inner join age_breakdown ab
+on a.user_id = ab.user_id
+where a.activity_type in ('send','open')
+group by ab.age_bucket
+)
+select age_bucket,
+round((100.0*send_time/total_time),2)as send_perc,
+round((100.0*open_time/total_time),2)as open_perc
+from cte;
+
