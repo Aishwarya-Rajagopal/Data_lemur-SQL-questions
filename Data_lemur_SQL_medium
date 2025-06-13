@@ -217,6 +217,14 @@ FROM user_transactions
 select transaction_date,user_id,purchase_count
 from cte
 where rn=1
-order by transaction_date
-;
+order by transaction_date;
 
+Problem 15: https://datalemur.com/questions/alibaba-compressed-mode
+select item_count as mode
+from items_per_order
+where order_occurrences = (select max(order_occurrences) from items_per_order)
+
+Problem 16:
+Problem 17:
+Problem 18:
+Problem 19:
