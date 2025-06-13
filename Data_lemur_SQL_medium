@@ -239,6 +239,15 @@ select round(100.0*count(*)/(select count(*) from phone_calls),1) as internation
 from filtered;
 
 
-Problem 17:
+Problem 17: https://datalemur.com/questions/uncategorized-calls-percentage
+
+with cte as(
+SELECT call_category FROM callers
+where call_category='n/a' or call_category is null)
+
+select round(100.0*count(*)/(select count(*) from callers),1) as uncategorised_call_pct
+from cte;
+
+
 Problem 18:
 Problem 19:
