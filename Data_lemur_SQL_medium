@@ -224,7 +224,21 @@ select item_count as mode
 from items_per_order
 where order_occurrences = (select max(order_occurrences) from items_per_order)
 
-Problem 16:
+Problem 16: https://datalemur.com/questions/international-call-percentage
+
+with filtered as(
+SELECT c1.caller_id,c1.country_id,c2.caller_id,c2.country_id
+FROM phone_calls c
+left join phone_info c1
+on c.caller_id=c1.caller_id
+left join phone_info  c2
+on c.receiver_id=c2.caller_id
+where c1.country_id <> c2.country_id)
+
+select round(100.0*count(*)/(select count(*) from phone_calls),1) as international_calls_pct
+from filtered;
+
+
 Problem 17:
 Problem 18:
 Problem 19:
